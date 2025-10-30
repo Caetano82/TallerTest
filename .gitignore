@@ -1,0 +1,19 @@
+# IDE
+.vs/
+*.user
+*.suo
+
+# Dotnet
+**/bin/
+**/obj/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Logs
+**/*.log
+
+# Misc
+.DS_Store
+Thumbs.db
