@@ -1,33 +1,32 @@
 # Real-Time Task Management App (Backend: .NET Minimal API + SignalR, Frontend: React + Vite)
 
-Aplicação simples de gerenciamento de tarefas com atualização em tempo real via SignalR e um resumo por IA das tarefas.
+A simple task manager with real-time updates via SignalR and AI-powered task summarization.
 
 ## Stack
 - Backend: .NET 9, Minimal APIs, Entity Framework Core (InMemory), SignalR, CORS
 - Frontend: React + Vite + TypeScript, @microsoft/signalr
-- AI: OpenAI (opcional) com fallback de resumo mock
+- AI: OpenAI (optional) with mock fallback
 
-## Estrutura
+## Structure
 ```
 TallerTest/
-├─ TaskApi/            # Backend .NET Minimal API
-├─ frontend/           # Frontend React + Vite (TS)
+├─ TaskApi/            # .NET Minimal API backend
+├─ frontend/           # React + Vite (TS) frontend
 └─ TaskApp.sln         # Solution
 ```
 
-## Como rodar
+## Run locally
 1) Backend
 ```bash
 cd TaskApi
-# opcional: exporte sua chave para resumo por IA real
-# Windows PowerShell
-# $env:OPENAI_API_KEY = "sua_chave"
+# optional: enable real AI summary
+# PowerShell
+# $env:OPENAI_API_KEY = "your_key"
 # CMD
-# set OPENAI_API_KEY=sua_chave
+# set OPENAI_API_KEY=your_key
 
-# Executar
 dotnet run
-# Sobe em http://localhost:5000
+# runs at http://localhost:5000
 ```
 
 2) Frontend
@@ -35,35 +34,35 @@ dotnet run
 cd frontend
 npm install
 npm run dev
-# Normalmente em http://localhost:5173
+# typically at http://localhost:5173
 ```
 
-## Endpoints Backend
-- GET `/api/tasks` → Lista tarefas
-- POST `/api/tasks` → Cria tarefa
-  - Body JSON: `{ "title": string, "description"?: string }`
-- POST `/api/summarize` → Retorna `{ summary }` (usa OpenAI se `OPENAI_API_KEY` setado; caso contrário, resumo mock)
-- SignalR Hub: `/hubs/tasks` (evento `TaskAdded` broadcast após criação)
+## Backend endpoints
+- GET `/api/tasks` → list tasks
+- POST `/api/tasks` → create task
+  - JSON body: `{ "title": string, "description"?: string }`
+- POST `/api/summarize` → returns `{ summary }` (uses OpenAI if `OPENAI_API_KEY` is set; otherwise mock)
+- SignalR Hub: `/hubs/tasks` (broadcasts `TaskAdded` after creation)
 
-## Configurações importantes
-- CORS permite `http://localhost:5173` e variantes locais
-- URL do backend fixada: `http://localhost:5000`
-- O frontend aponta para `http://localhost:5000` por padrão
+## Important settings
+- CORS allows `http://localhost:5173` and local variants
+- Backend URL is fixed to `http://localhost:5000`
+- Frontend calls the backend at `http://localhost:5000` by default
 
-## Resumo por IA
-- Configure `OPENAI_API_KEY` no ambiente para usar OpenAI (modelo `gpt-3.5-turbo`)
-- Sem chave ou em caso de erro, o backend retorna um resumo mock curto
+## AI summary
+- Set `OPENAI_API_KEY` to use OpenAI (model `gpt-3.5-turbo`)
+- Without a key, the backend returns a short mock summary
 
-## Dicas e Solução de Problemas
-- Tela branca no frontend: abra o Console do navegador (F12) e verifique erros
-- JSX/TSX: garantido via `tsconfig.json` com `jsx: react-jsx`
-- SignalR não conecta:
-  - Verifique que o backend está rodando em `http://localhost:5000`
-  - Verifique a chamada `GET /hubs/tasks/negotiate` no Network (deve retornar 200)
-  - Em desenvolvimento, desabilitamos o React StrictMode para evitar duplo start do HubConnection
-- CORS: confirme que o frontend acessa via `http://localhost:5173` (não https)
+## Troubleshooting
+- Blank page: open browser Console (F12) and check errors
+- JSX/TSX: enabled via `tsconfig.json` (`jsx: react-jsx`)
+- SignalR not connecting:
+  - Ensure backend is running at `http://localhost:5000`
+  - Check `GET /hubs/tasks/negotiate` in Network tab (should be 200)
+  - In development, React StrictMode is disabled to avoid double-start of HubConnection
+- CORS: ensure the frontend is served from `http://localhost:5173` (not https)
 
-## Scripts úteis
+## Useful scripts
 - Backend
 ```bash
 cd TaskApi
@@ -78,7 +77,7 @@ cd frontend
  npm run preview
 ```
 
-## Licença
-Livre para uso educacional/demonstração.
+## License
+Free for educational/demo use.
 
 
